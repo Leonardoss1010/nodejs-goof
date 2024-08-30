@@ -19,6 +19,7 @@ jobs:
           
   snyk:
       runs-on: ubuntu-latest
+      needs: sonarcloud
       steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
@@ -30,7 +31,8 @@ jobs:
 
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan the webapplication
+    name: ZAP
+    needs: snyk
     steps:      
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
